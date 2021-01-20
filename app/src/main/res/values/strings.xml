@@ -4,6 +4,8 @@
 
     // Main Screen
     <string name="main_screen_title">Ask All</string>
+    <string name="sign_in">Sign in now to make an impact</string>
+    <string name="sign_in_signed_user">Welcome: %1$s</string>
 
     // Menu
     <string name="first_option">About AskAll ...</string>
