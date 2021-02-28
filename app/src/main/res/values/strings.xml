@@ -2,15 +2,62 @@
     // General
     <string name="app_name">AskAll</string>
 
-    // Main Screen
-    <string name="main_screen_title">Ask All</string>
-    <string name="sign_in">Sign in now to make an impact</string>
-    <string name="sign_in_signed_user">Welcome: %1$s</string>
+    // Fonts
+    <string name="sans_serif_medium" translatable="false">sans-serif-medium</string>
+    <string name="sans_serif_regular" translatable="false">sans-serif</string>
+    <string name="sans_serif_light" translatable="false">sans-serif-light</string>
 
     // Menu
     <string name="first_option">About AskAll ...</string>
     <string name="second_option">Terms and Conditions</string>
     <string name="third_option">third_option</string>
     <string name="backdrop_button_1">Coming Soon...</string>
+
+    // Main Screen
+    <string name="main_screen_title">Ask All</string>
+    <string name="sign_in">Sign in now to make an impact</string>
+    <string name="sign_in_signed_user">Welcome: %1$s</string>
+    <string name="ask_something">Ask Something!</string>
+    <string name="see_questions">See Questions</string>
+
+    // Shared Perfrences
+    <string name="sp_sign_in">SignIn</string>
+    <string name="sp_display_name">displayName</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    // ask question Activity
+    <string name="your_sex_title">Your Sex:</string>
+    <string name="t_male">Male</string>
+    <string name="t_female">Female</string>
+    <string name="your_age_title">Your Age:</string>
+    <string name="send_your_question_dailog_title">Are you sure you want to send your question?</string>
+    <string name="send_your_question_dailog_subtitle">will send to our servers</string>
+    <string name="send_your_question_info_dailog_title">INFO</string>
+    <string name="send_your_question_info_dailog_subtitle">in order to send your question please fill in all details. please notice the character limits.</string>
+    <string name="send_your_question_succeded_dialog_title">sending question succeded !!! </string>
+    <string name="send_your_question_failed_dialog_title">sending question Failed</string>
+    <string name="send_your_question_failed_dialog_subtitle">please notice you can send only 1 question in 24 hours.</string>
+
+
+    // question Activity
+
+    // question fragment
+    <string name="user_question">user question...</string>
+    <string name="thanks_for_voting">"thanks for voting!!!"</string>
+    <string name="votes">%1$s votes!</string>
+
+    // user info fragment
+    <string name="user_info_title">User Info</string>
+    <string name="user_info_name">Name</string>
+    <string name="user_info_gender">Gender</string>
+    <string name="user_info_age">Age</string>
+
+    // Dialog
+    <string name="dialog_positive_button_text_ok">"OK"</string>
+    // please login
+    <string name="dialog_info_please_login_title">"INFO"</string>
+    <string name="dialog_info_please_login_in_order_to_send_your_question">"Please login in order to send your question"</string>
+    <string name="dialog_info_please_login_in_order_to_vote">"Please login in order to send your vote"</string>
 
 </resources>
