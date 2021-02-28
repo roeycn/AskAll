@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activities.AskSomethingActivity"
+    tools:showIn="@layout/activity_ask_something">
+
+    <LinearLayout
+        android:id="@+id/lay_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:counterEnabled="true"
+            app:counterMaxLength="15"
+            android:paddingTop="@dimen/text_margin">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:layout_weight="1"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="your name: "
+                android:inputType="textPersonName"
+                android:maxLength="15"
+                android:tag="name" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/radio_group_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:paddingLeft="4sp"
+            android:paddingRight="4sp"
+            android:text="@string/your_sex_title"
+            android:textAppearance="@style/TextAppearance.Design.Counter"
+            android:textColor="?android:attr/textColorHint" />
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:orientation="horizontal"
+            android:checkedButton="@id/radio_male"
+            android:paddingBottom="@dimen/text_margin">
+
+            <RadioButton
+                android:id="@+id/radio_male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/text_margin"
+                android:layout_weight="1"
+                android:onClick="onRadioButtonClicked"
+                android:tag="sex_male"
+                android:text="@string/t_male" />
+
+            <RadioButton
+                android:id="@+id/radio_female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/text_margin"
+                android:layout_weight="1"
+                android:onClick="onRadioButtonClicked"
+                android:tag="sex_female"
+                android:text="@string/t_female" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/number_picker_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:paddingLeft="4sp"
+            android:paddingRight="4sp"
+            android:text="@string/your_age_title"
+            android:textAppearance="@style/TextAppearance.Design.Counter"
+            android:textColor="?android:attr/textColorHint" />
+
+        <NumberPicker
+            android:id="@+id/number_picker"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_gravity="center">
+
+        </NumberPicker>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:counterEnabled="true"
+            app:counterMaxLength="25"
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/edit_question"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="your question: "
+                android:inputType="textAutoCorrect"
+                android:tag="question"
+                android:maxLength="25"
+                android:textAlignment="viewStart" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:counterEnabled="true"
+            app:counterMaxLength="10"
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/edit_first_answer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="first possible answer to vote:"
+                android:inputType="textAutoCorrect"
+                android:maxLength="10"
+                android:tag="first_answer"
+                android:textAlignment="viewStart" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:counterEnabled="true"
+            app:counterMaxLength="10"
+            android:layout_weight="1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_second_answer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="second possible answer to vote:"
+                android:inputType="textAutoCorrect"
+                android:maxLength="10"
+                android:tag="second_answer"
+                android:textAlignment="viewStart" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/send_question_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:enabled="false"
+            android:text="Button" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

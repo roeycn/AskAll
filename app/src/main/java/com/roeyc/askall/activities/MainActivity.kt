@@ -1,17 +1,17 @@
 package com.roeyc.askall.activities
 
-
-import androidx.appcompat.app.AppCompatActivity
+import android.app.ActivityOptions
+import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
+import android.transition.Fade
+import android.view.View
+import android.view.Window
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.firebase.ui.auth.AuthUI
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -19,7 +19,11 @@ import com.google.firebase.ktx.Firebase
 import com.roeyc.askall.NavigationIconClickListener
 import com.roeyc.askall.R
 import com.roeyc.askall.databinding.ActivityMainBinding
+import com.roeyc.askall.utils.SharedPref
 import com.roeyc.askall.viewmodels.MainActivityViewModel
+import com.roeyc.stockapp.dialogs.APPDialog
+import com.roeyc.stockapp.dialogs.AppDialogItem
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,7 +31,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     lateinit var viewModel: MainActivityViewModel
     private lateinit var auth: FirebaseAuth
-    private lateinit var googleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,20 +38,89 @@ class MainActivity : AppCompatActivity() {
        // setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
+
+        // https://heartbeat.fritz.ai/implementing-activity-and-element-transition-animations-in-android-5e2a2ba19f2f
+        with(window) {
+            requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
+            // set set the transition to be shown when the user enters this activity
+        //    enterTransition = Fade()
+            // set the transition to be shown when the user leaves this activity
+            exitTransition = Fade()
+        }
+
         setContentView(view)
-        setMenu()
+        init()
+    }
+
+    private fun init() {
+        initSharedPref()
+        initMenu()
+        initFirebase()
+        initSubscriptions()
+        initObservables()
+    }
+
+    private fun initObservables() {
+        viewModel.observeShowDialogLiveData(lifecycle) {
+            showAppDialog(it)
+        }
+    }
+
+    private fun showAppDialog(appDialogItem: AppDialogItem, forceShow: Boolean = false) {
+        APPDialog.show(this.supportFragmentManager, appDialogItem, forceShow)
+    }
+
+    private fun initSharedPref() {
+        SharedPref.init(applicationContext)
+    }
+
+    private fun initMenu() {
+        setSupportActionBar(binding.appBar)
+        // handling the open/close manu button
+        binding.appBar.setNavigationOnClickListener(
+            NavigationIconClickListener(this, binding.grid, AccelerateDecelerateInterpolator(),
+                ContextCompat.getDrawable(this, R.drawable.ic_menu_black), // Menu open icon
+                ContextCompat.getDrawable(this, R.drawable.ic_close_black))
+        )
+    }
+
+    private fun initFirebase() {
         // Initialize Firebase Auth
         auth = Firebase.auth
+        // https://firebase.google.com/docs/database/android/offline-capabilities
+    }
 
-        binding.loginButton.setOnClickListener() {
+    private fun initSubscriptions() {
+        binding.signinButton.setOnClickListener() {
             signIn()
         }
 
-        binding.logoutButton.setOnClickListener()
+        binding.signoutButton.setOnClickListener()
         {
             signOut()
         }
+
+        binding.seeQuestionsButton.setOnClickListener()
+        {
+            val intent = Intent(this, UsersQuestionsActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.askSomethingButton.setOnClickListener()
+        {
+            if (auth.currentUser != null) {
+                // User is signed in.
+                val intent = Intent(this, AskSomethingActivity::class.java)
+               // startActivity(intent)
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+            }else {
+                // user is NOT signed in.
+                viewModel.showPleaseLoginDialog()
+            }
+        }
     }
+
+
 
     override fun onStart() {
         super.onStart()
@@ -58,10 +130,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateUI(user: FirebaseUser?) {
+
+        SharedPref.write(SharedPref.SIGN_IN, user?.displayName);//save string in shared preference.
+
         if (user != null) {
-            binding.hello.text = getString(R.string.sign_in_signed_user, user.displayName) //"Welcome: " + user.displayName
+            binding.hello.text = getString(R.string.sign_in_signed_user, user.displayName)
+            binding.signinButton.visibility = View.INVISIBLE
+            binding.signoutButton.visibility = View.VISIBLE
         } else {
             binding.hello.setText(R.string.sign_in)
+            binding.signinButton.visibility = View.VISIBLE
+            binding.signoutButton.visibility = View.INVISIBLE
         }
     }
 
@@ -92,20 +171,4 @@ class MainActivity : AppCompatActivity() {
         updateUI(null)
     }
 
-    private fun setMenu() {
-        setSupportActionBar(binding.appBar)
-        // handling the open/close manu button
-        binding.appBar.setNavigationOnClickListener(
-            NavigationIconClickListener(this, binding.grid, AccelerateDecelerateInterpolator(),
-                ContextCompat.getDrawable(this, R.drawable.ic_menu_black), // Menu open icon
-                ContextCompat.getDrawable(this, R.drawable.ic_close_black))
-        )
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-       super.onCreateOptionsMenu(menu)
-       // menuInflater.inflate(R.layout.menu_backdrop, menu)
-      // menuInflater.inflate(R.menu.menu_backdrop, menu)
-        return true
-    }
 }

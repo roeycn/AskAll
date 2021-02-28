@@ -3,6 +3,8 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'com.google.gms.google-services'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs'
 }
 
 android {
@@ -66,9 +68,30 @@ dependencies {
     // Add the dependency for the Firebase SDK for Google Analytics
     // When using the BoM, don't specify versions in Firebase dependencies
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+    implementation 'com.google.firebase:firebase-functions:16.1.0'
     // auth
     implementation 'com.google.firebase:firebase-auth-ktx'
     // https://firebase.google.com/docs/auth/android/firebaseui
     implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
     implementation 'com.google.android.gms:play-services-auth:18.1.0'
+
+    //rx java
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.11'
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
+
+    // https://medium.com/@mobindustry/how-to-quickly-implement-beautiful-charts-in-your-android-app-cf4caf050772
+   // implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
+
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.0-alpha04"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.0-alpha04"
+
+    // https://medium.com/@mobindustry/how-to-quickly-implement-beautiful-charts-in-your-android-app-cf4caf050772
+    implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
+
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
+
+
 }
